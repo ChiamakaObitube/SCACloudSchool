@@ -17,7 +17,6 @@ Run ```touch users.txt``` to create a new file. The file will contain the requir
 Run ```sudo newusers users.txt``` to create 15 users at once.
 To verify that the users have been created, run ```sudo cat /etc/passwd```.
 
-
 ![new users created in batch](week1/images/newuserscreated.PNG)
 ### Create 3 groups
 Run this command to create a group ```groupadd <group name>```
