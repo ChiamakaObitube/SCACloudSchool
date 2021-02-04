@@ -16,11 +16,15 @@ Run ```touch users.txt``` to create a new file. The file will contain the requir
 
 Run ```sudo newusers users.txt``` to create 15 users at once.
 To verify that the users have been created, run ```sudo cat /etc/passwd```
+
+
 ![new users created in batch](week1/images/newuserscreated.PNG)
 ### Create 3 groups
 Run this command to create a group ```groupadd <group name>```
 To verify that the group has been created, we use the grep command like this ```grep <groupname> /etc/group```. This will find the group.
 Run this command to get all the existing groups ```getent group```
+
+
 ![create groups](week1/images/groupscreated.PNG)
 
 ### Assign the users across the 3 created groups.
@@ -35,7 +39,7 @@ I will use the command below to add users (1-5)  to group A, users (6 -10) to gr
 * This command has to be run as a root user.
 
 We can use this command ```grep <groupname> /etc/group`` to verify that the users have been added to their respective groups. The members of the group will appear after the group name as below
-![users assigned to different groups](/images/usersassignedtogroups.PNG)
+![users assigned to different groups](week1/images/usersassignedtogroups.PNG)
 
 ### Demonstrate that user(s) in a group cannot access files/folders that belong to another group unless they are added to that group
 
@@ -47,12 +51,13 @@ I created 3 files with the text "Hello Group" and made each group the owner of e
 ```sudo chgrp groupC testaccessC.txt```
 
 This command does not return an output. To verify that it was successful, I will run this command ```ll``` and the output is below
-![Group ownership](./images/groupownership.PNG)
+
+![Group ownership](week1/images/groupownership.PNG)
 Now, we will check if users in groupA can access the file testaccessB.txt. In Linux, we can login as another user by running the ```sudo su user1 command```
 
 When we try to read or write to testaccessA.txt, userI is able to do so successfully. However, he is not able to read what is in testaccessB.txt.
 
-![permission denied to user1](./images/permissiondenied.PNG) 
+![permission denied to user1](week1/images/permissiondenied.PNG) 
 
 
 Now, we will add user1 to groupB and confirm if he is able to read testaccess.txt file using the command below
@@ -60,4 +65,4 @@ Now, we will add user1 to groupB and confirm if he is able to read testaccess.tx
 
 Now, when user1 is logged in, he is able to read and write to testaccessB.txt file.
 
-![user1 can access testaccessB.txt](./images/user1accessB.PNG)
+![user1 can access testaccessB.txt](week1/images/user1accessB.PNG)
