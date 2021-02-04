@@ -54,6 +54,7 @@ I created 3 files with the text "Hello Group" and made each group the owner of e
 This command does not return an output. To verify that it was successful, I will run this command ```ll``` and the output is below.
 
 ![Group ownership](week1/images/groupownership.PNG)
+
 Now, we will check if users in groupA can access the file testaccessB.txt. In Linux, we can login as another user by running the ```sudo su user1 command```
 
 When we try to read or write to testaccessA.txt, userI is able to do so successfully. However, he is not able to read what is in testaccessB.txt.
