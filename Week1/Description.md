@@ -16,12 +16,11 @@ Run ```touch users.txt``` to create a new file. The file will contain the requir
 
 Run ```sudo newusers users.txt``` to create 15 users at once.
 To verify that the users have been created, run ```sudo cat /etc/passwd```
-![new users created in batch](week1/images/newuserscreated.PNG)
+
 ### Create 3 groups
 Run this command to create a group ```groupadd <group name>```
 To verify that the group has been created, we use the grep command like this ```grep <groupname> /etc/group```. This will find the group.
 Run this command to get all the existing groups ```getent group```
-![create groups](week1/images/groupscreated.PNG)
 
 ### Assign the users across the 3 created groups.
 
@@ -34,30 +33,18 @@ I will use the command below to add users (1-5)  to group A, users (6 -10) to gr
 ```for i in user11 user12 user13 user14 user15; do usermod -G groupA $i; done```
 * This command has to be run as a root user.
 
-We can use this command ```grep <groupname> /etc/group`` to verify that the users have been added to their respective groups. The members of the group will appear after the group name as below
-![users assigned to different groups](/images/usersassignedtogroups.PNG)
+We can use this command ```grep <groupname> /etc/group`` to verify that the users have been added to their respective groups. The members of the group will appear afther the group name as below
+
 
 ### Demonstrate that user(s) in a group cannot access files/folders that belong to another group unless they are added to that group
 
 In Linux, each file or folder has 3 permissions divided into user, group and others. Each of these people can have the right to read, write and execute a file or folder. For example, **groupA** will own the file **testaccessA.txt** file. We need to have administrator permission to do this.
 The command is *** sudo chgrp [OPTIONS]  GROUPNAME FILE(s)***
-I created 3 files with the text "Hello Group" and made each group the owner of each file.
-```sudo chgrp groupA testaccessA.txt```
-```sudo chgrp groupB testaccessB.txt```
-```sudo chgrp groupC testaccessC.txt```
+I created 3 files and made each group the owner of each file.
+```sudo chgrp :groupA testaccessA.txt```
+```sudo chgrp :groupB testaccessB.txt```
+``` sudo chgrp :groupC testaccessC.txt```
 
 This command does not return an output. To verify that it was successful, I will run this command ```ll``` and the output is below
-![Group ownership](./images/groupownership.PNG)
-Now, we will check if users in groupA can access the file testaccessB.txt. In Linux, we can login as another user by running the ```sudo su user1 command```
 
-When we try to read or write to testaccessA.txt, userI is able to do so successfully. However, he is not able to read what is in testaccessB.txt.
-
-![permission denied to user1](./images/permissiondenied.PNG) 
-
-
-Now, we will add user1 to groupB and confirm if he is able to read testaccess.txt file using the command below
-```sudo usermod -aG groupB user1```
-
-Now, when user1 is logged in, he is able to read and write to testaccessB.txt file.
-
-![user1 can access testaccessB.txt](./images/user1accessB.PNG)
+Now, we will check if users in groupA can access the file testaccessB.txt. In LInux, you can login as another user by running the ```sudo su user1 command```
