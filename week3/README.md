@@ -101,4 +101,6 @@ We will upload to the application to Docker HUb.
 
 * Tag the repository by using the command ``` docker tag <exisitng-image> <docker-username/<repo-name>```
 
-* Push to DOcker hub using the command - ```docker push <docker-username>/<repo-name>
+* Push to Docker hub using the command - ```docker push <docker-username>/<repo-name>```
+
+* Link to DOcker Repository - https://hub.docker.com/repository/docker/chiamakaobitube/scacloudschool-week3
