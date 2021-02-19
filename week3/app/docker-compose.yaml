@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  backend:
+    image: node:12-alpine
+    command: sh -c "npm install && node index.js"
+    working_dir: /app
+    volumes:
+      - ./:/app
+    environment:
+      DB_HOST: db
+      DB_PORT:     "${DB_PORT}"
+      DB_USER:     "${DB_USER}"
+      DB_PASSWORD: "${DB_PASS}"
+      DB_NAME:     "${DB_NAME}"
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db # Wait until database service is loaded
+
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASS}"
+      MYSQL_DATABASE: "${DB_NAME}"
+      MYSQL_USER:     "${DB_USER}"
+      MYSQL_PASSWORD: "${DB_PASS}"
+   

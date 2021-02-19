@@ -28,7 +28,21 @@ Docker was introduced in 2013 to build and share containarized apps from desktop
 * Docker daemon - Listens for Docker API requests and manages docker objects such as images, containers, networks and volumes.
 * Docker client (docker) - The primary way many users interact with Docker. 
 * Docker registries - A place to store Docker images. Docker Hub is a public registry that anyone can use.
-* Docker iamge - a read-only template with instructions for creating a Docker container. You can create your own images or use those created by others and published in a registry.
+* Docker image - a read-only template with instructions for creating a Docker container. You can create your own images or use those created by others and published in a registry.
 * Dockerfile - A set of instructions that Docker follows to create the necessary docker image. 
 * Container - A runnable instance of an image. It is a single short lived instance of one task, process or application. A container can be created, started, stopped, moved or deleted using the Docker API or CLI.
-* Docker Compose - Provides a way to deploy, coordinate or orchestrate multiple containers.
+* Docker Compose - Provides a way to deploy, coordinate or orchestrate multiple containers. The Docker Compose file is usually written in YAML format.
+
+Now that we have explained some basic Docker concepts, time to move to the practical stuff.
+
+# Task for the Week
+
+THis week's task is to write a Docker Compose file to deploy any application with a Database. This will consists of a container hosting the NodeJS application and another container for the mySQL database. In essense, we will be working with two different containers and to this, we will need Docker Compose. These containers will be pushed to the Cloud.
+
+### Create a NodeJS application
+
+* Created a simple NodeJS application by running the commands ```npm init -y``` and ```npm i express```
+* Created a index.js file with the NodeJS server code.
+* Confirmed that the server is up and running by using the command ``` node index.js ```
+
+### Add MYSQL database connection
