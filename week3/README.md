@@ -46,3 +46,4 @@ THis week's task is to write a Docker Compose file to deploy any application wit
 * Confirmed that the server is up and running by using the command ``` node index.js ```
 
 ### Add MYSQL database connection
+* installed MYSQL using the command npm i mysql
