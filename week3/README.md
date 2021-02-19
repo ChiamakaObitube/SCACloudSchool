@@ -91,7 +91,8 @@ The ***docker-compose.yaml*** file contains 2 services; ***backend*** representi
 * To start the services, we use the command ``` docker-compose up -d``` which starts the services in the backgroud. It will pull the respective images and create the containers. 
 
 ![docker-compose up](/week3/images/docker-composeup.PNG)
-* TO verify that the application is running, use ```curl localhost:5000``` or ```docker-compose logs -f ``` to watch the deployment output.
+* To verify that the application is running, use ```curl localhost:5000``` or ```docker-compose logs -f ``` to watch the deployment output.
+
 ![application running](/week3/images/applicationupandrunning.PNG)
 ### Upload the containers to the Cloud
 
