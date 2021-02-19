@@ -85,3 +85,20 @@ services:
       MYSQL_USER:     "${DB_USER}"
       MYSQL_PASSWORD: "${DB_PASS}"
 ```
+
+The ***docker-compose.yaml*** file contains 2 services; ***backend*** representing the NodeJS application and ***db*** for the database. 
+
+* To start the services, we use the command ``` docker-compose up -d``` which starts the services in the backgroud. It will pull the respective images and create the containers. 
+
+![docker-compose up](week3/images/docker-composeup.PNG)
+* TO verify that the application is running, use ```curl localhost:5000``` or ```docker-compose logs -f ``` to watch the deployment output.
+![application running](week3/images/applicationupandrunning.PNG)
+### Upload the containers to the Cloud
+
+We will upload to the application to Docker HUb.
+
+* First, sign into https://hub.docker.com and create a repository. You can choose to make it public or private.
+
+* Tag the repository by using the command ``` docker tag <exisitng-image> <docker-username/<repo-name>```
+
+* Push to DOcker hub using the command - ```docker push <docker-username>/<repo-name>
