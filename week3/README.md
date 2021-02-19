@@ -46,4 +46,42 @@ THis week's task is to write a Docker Compose file to deploy any application wit
 * Confirmed that the server is up and running by using the command ``` node index.js ```
 
 ### Add MYSQL database connection
-* installed MYSQL using the command npm i mysql
+* installed MYSQL using the command ```npm i mysql``` and ``npm i dotenv``` to store our database credentials without exposing it to git.
+
+* created a database connection to our application in index.js file.
+
+### Create Docker Compose file
+
+As we discussed above, Docker Compose is used to deploy or orchestrate multiple containers. In our case, the database and the application will be in 2 different isolated containers. Docker Compose files are written in YAML format.
+* Run ```touch docker-compose.yaml ``` to create the Docker Compose file.
+
+* We will add the code below in the docker-compose.yaml file
+```
+version: "3.8"
+
+services:
+  backend:
+    image: node:12-alpine
+    command: sh -c "npm install && node index.js"
+    working_dir: /app
+    volumes:
+      - ./:/app
+    environment:
+      DB_HOST: db
+      DB_PORT:     "${DB_PORT}"
+      DB_USER:     "${DB_USER}"
+      DB_PASSWORD: "${DB_PASS}"
+      DB_NAME:     "${DB_NAME}"
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db # Wait until database service is loaded
+
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASS}"
+      MYSQL_DATABASE: "${DB_NAME}"
+      MYSQL_USER:     "${DB_USER}"
+      MYSQL_PASSWORD: "${DB_PASS}"
+```

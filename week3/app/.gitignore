@@ -1,3 +1,4 @@
 node_modules
 .env
-week3/app/.env
+app/.env
+/.env
