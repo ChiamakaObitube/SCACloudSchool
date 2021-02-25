@@ -16,7 +16,7 @@ services:
       - db # Wait until database service is loaded
 
   db:
-    image: mysql:5.7
+    image: chiamakaobitube/mysql:5.7
     environment:
       MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASS}"
       MYSQL_DATABASE: "${DB_NAME}"
