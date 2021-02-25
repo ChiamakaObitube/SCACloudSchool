@@ -21,8 +21,7 @@ Using Docker-Compose, configure and deploy an nginx application that routes to t
 App1 and App2 consists of a Django application and a NestJS application running on ports 8000 and 5000 respectively.
 
 * Clone and create the repositories.
-App1 is available here
-App2 is available here
+App1 is available here and App2 is available here
 * Create a docker-compose.yml file in the root directory that will contain the nginx application. Copy and paste the contents below.
 ``` version: '3'
 services:
@@ -32,8 +31,7 @@ services:
     ports:
       - '8080:80'
 ```
-* Configure the containers to talk with each other.
-Since our applications will be built using different composeTo achieve this, create a network using the command ```doker network create app```. 
+* Configure the containers to talk with each other. Since our applications will be built using different composeTo achieve this, create a network using the command ```doker network create app```. 
 Modify the docker compose files for each of the repos and the nginx docker-compose file to include this snippet at the bottom.
 ```networks:
  default:
@@ -42,8 +40,9 @@ Modify the docker compose files for each of the repos and the nginx docker-compo
 ```
 * Create a directory and a sub directory named ***nginx*** and ***sites-enabled*** that will contain the NGINX configuration files. CD into the ***sites-enabled*** directory and create a file ***nginx.conf***
 
-Copy and paste the contents below into the nginx.conf file
-```server {
+* Copy and paste the contents below into the nginx.conf file.
+```
+  server {
   listen 80;
   server_name localhost;
   access_log /var/log/nginx/nginx.conf.log;
@@ -71,4 +70,4 @@ Run ```docker-compose up -d``` in each of the foldersto start the applications.
 Please note that the applications need to be up and running first before bringing up the Nginx service.
 
 * Verify the configuration.
-If there are no errors, the container applications using these urls http://localhost:8080/django and http://localhost:8080/nest respectivelu
+If there are no errors, the container applications using these urls http://localhost:8080/django and http://localhost:8080/nest respectively
