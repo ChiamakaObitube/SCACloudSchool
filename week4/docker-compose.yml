@@ -1,27 +1,11 @@
 version: '3'
 services:
-  django:
-      build: ./django
-      volumes:
-          - "./django:/app"
-      ports:
-        - "8000:8000"
-
   nginx:
     restart: always
     build: ./nginx/
     ports:
       - '8080:80'
-    links:
-      - django:django
-      - nest:nest
-      
-  nest: 
-    build: ./nest
-    volumes: 
-        - ./nest:/app"
-    ports:
-      - "5000:5000"
+
 networks:
  default:
    external:
