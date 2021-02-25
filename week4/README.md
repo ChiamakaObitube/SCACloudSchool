@@ -31,9 +31,11 @@ services:
     ports:
       - '8080:80'
 ```
-* Configure the containers to talk with each other. Since our applications will be built using different composeTo achieve this, create a network using the command ```doker network create app```. 
+The ports have been remapped to make nginx available on port 8080 on the host machine.
+* Configure the containers to talk with each other. Since the applications will be built using different compose, create a network using the command ```doker network create app```. 
 Modify the docker compose files for each of the repos and the nginx docker-compose file to include this snippet at the bottom.
-```networks:
+```
+networks:
  default:
    external:
      name: app
@@ -70,4 +72,8 @@ Run ```docker-compose up -d``` in each of the foldersto start the applications.
 Please note that the applications need to be up and running first before bringing up the Nginx service.
 
 * Verify the configuration.
-If there are no errors, the container applications using these urls http://localhost:8080/django and http://localhost:8080/nest respectively
+If there are no errors, the container applications using these urls http://localhost:8080/django and http://localhost:8080/nest respectively.
+
+![http://localhost:8080/django](/week4/images/django.png)
+
+![http://localhost:8080/nest](/week4/images/nest.png)
