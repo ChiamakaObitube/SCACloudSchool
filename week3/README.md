@@ -104,4 +104,4 @@ We will upload to the application to Docker HUb.
 
 * Push to Docker hub using the command - ```docker push <docker-username>/<repo-name>```
 
-* Link to DOcker Repository - https://hub.docker.com/repository/docker/chiamakaobitube/scacloudschool-week3
+* Link to Docker Repository - https://hub.docker.com/repository/docker/chiamakaobitube/scacloudschool-week3
