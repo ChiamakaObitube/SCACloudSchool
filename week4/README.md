@@ -21,7 +21,7 @@ Using Docker-Compose, configure and deploy an nginx application that routes to t
 App1 and App2 consists of a Django application and a NestJS application running on ports 8000 and 5000 respectively.
 
 * Clone and create the repositories.
-App1 is available here and App2 is available here
+App1 is available [here](https://github.com/raccoonyy/django-sample-for-docker-compose.git) and App2 is available [here](https://github.com/kyhsa93/nestjs-rest-example.git)
 * Create a docker-compose.yml file in the root directory that will contain the nginx application. Copy and paste the contents below.
 ``` version: '3'
 services:
@@ -32,7 +32,7 @@ services:
       - '8080:80'
 ```
 The ports have been remapped to make nginx available on port 8080 on the host machine.
-* Configure the containers to talk with each other. Since the applications will be built using different compose, create a network using the command ```doker network create app```. 
+* Configure the containers to talk with each other. Since the applications will be built using different compose, create a network using the command ```docker network create app```. 
 Modify the docker compose files for each of the repos and the nginx docker-compose file to include this snippet at the bottom.
 ```
 networks:
