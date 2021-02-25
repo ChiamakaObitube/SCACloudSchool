@@ -23,7 +23,7 @@ App1 and App2 consists of a Django application and a NestJS application running 
 * Clone and create the repositories.
 App1 is available here
 App2 is available here
-* Create a docker-compose.yml file in the root directory that will contain the nginx application. Copy and paste the contents below
+* Create a docker-compose.yml file in the root directory that will contain the nginx application. Copy and paste the contents below.
 ``` version: '3'
 services:
   nginx:
@@ -31,8 +31,11 @@ services:
     build: ./nginx/
     ports:
       - '8080:80'
-    
-networks:
+```
+* Configure the containers to talk with each other.
+Since our applications will be built using different composeTo achieve this, create a network using the command ```doker network create app```. 
+Modify the docker compose files for each of the repos and the nginx docker-compose file to include this snippet at the bottom.
+```networks:
  default:
    external:
      name: app
@@ -61,4 +64,11 @@ Copy and paste the contents below into the nginx.conf file
   }
 }
 ```
-Because we want to be able to access the two applications like this /django and /nest respectively, we have  created and nested 2 location contexts for the different applications inside the server context. Using proxy_pass, we configured the application insteald of being identified by the port number, we used simple identifiable names to access the django  and nest applications originally available on port 8000 and port 5000 re spectively.
+Because we want to be able to access the two applications like this /django and /nest respectively, we have  created and nested 2 location contexts for the different applications inside the server context. And since the applications are available on the same network created earlier, we use proxy_pass to configure the applications to be available using simple identifiable names to access the django  and nest applications originally available on port 8000 and port 5000 respectively.
+
+* Start the applications
+Run ```docker-compose up -d``` in each of the foldersto start the applications. 
+Please note that the applications need to be up and running first before bringing up the Nginx service.
+
+* Verify the configuration.
+If there are no errors, the container applications using these urls http://localhost:8080/django and http://localhost:8080/nest respectivelu
