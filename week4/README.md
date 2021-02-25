@@ -21,7 +21,7 @@ Using Docker-Compose, configure and deploy an nginx application that routes to t
 App1 and App2 consists of a Django application and a NestJS application running on ports 8000 and 5000 respectively.
 
 * Clone and create the repositories.
-App1 is available [here](https://github.com/raccoonyy/django-sample-for-docker-compose.git) and App2 is available [here](https://github.com/kyhsa93/nestjs-rest-example.git)
+App1 is available [here](https://github.com/raccoonyy/django-sample-for-docker-compose.git) and App2 is available [here.](https://github.com/kyhsa93/nestjs-rest-example.git)
 * Create a docker-compose.yml file in the root directory that will contain the nginx application. Copy and paste the contents below.
 ``` version: '3'
 services:
