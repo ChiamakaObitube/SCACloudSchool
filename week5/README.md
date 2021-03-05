@@ -97,5 +97,5 @@ We can verify that our Heroku application is running by navigating to the URL of
 ![devyapp running on Heroku](/week5/images/herokuapp.png)
 
 ## Links
-GitHub repo - https://github.com/ChiamakaObitube/devyapp.git
-Heroku app - https://devyapp.herokuapp.com/
+* GitHub repo - https://github.com/ChiamakaObitube/devyapp.git
+* Heroku app - https://devyapp.herokuapp.com/
