@@ -25,7 +25,7 @@ GitHub Actions uses YAML syntax to define the events, jobs, and steps. These YAM
 
 ### Step 1: Test and confirm that application working locally.
 
-Clone the repository ```git clone https://github.com/ChiamakaObitube/devyapp.git
+Clone the repository ```git clone https://github.com/ChiamakaObitube/devyapp.git ``
 
 ### Step 2: Create an application on Heroku
 ### Step 3: Generate an Heroku API key.
@@ -95,3 +95,7 @@ The workflow will be triggered once a code change has been commited and pushed t
 We can verify that our Heroku application is running by navigating to the URL of the app we created - https://devyapp.herokuapp.com/ 
 
 ![devyapp running on Heroku](/week5/images/herokuapp.png)
+
+## Links
+GitHub repo - https://github.com/ChiamakaObitube/devyapp.git
+Heroku app - https://devyapp.herokuapp.com/
