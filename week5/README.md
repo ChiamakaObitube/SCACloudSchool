@@ -35,6 +35,11 @@ This will create a long-lived user authorization, whose token can be used to aut
 
 This token will be stored as a GitHub secret and referenced in our workflow as an environment variable. The GitHUb secret can be found in the repository settings.
 
+![github secret](/week5/images/githubsecret.png)
+
+### Step 4: Create the GitHub workflow file
+Each GitHub repository has an Actions Tab which we can use to setup our continuous integration workflow. The workflow file is hosted in the *.github/workflows* directory of your repository. Copy and add the code below in the yaml file. 
+
 ```
 name: Node.js CI
 
@@ -77,10 +82,16 @@ jobs:
         
 ```
 The workflow defines 1 job **build** with 5 steps. 
-The first step ***checkout*** fetches the contents of the repository to $GITHUB_WORKSPACE, an environment variable that maps to /home/runner/work on the runner. 
-The second step includes a matrix strategy that builds and tests our code with four Node.js versions:builds our application on the different NodeJS versions. If you don't specify a Node.js version, GitHub uses the environment's default Node.js version. This step also installs the dependencies needed to run the application. Using npm ci installs the versions in the package-lock.json or npm-shrinkwrap.json file and prevents updates to the lock file. 
-The third step logs into the Heroku container registry using the HEROKU_API_KEY set in the Github secrets and referenced in our workflow as an environment variable.
+* The first step ***checkout*** fetches the contents of the repository to $GITHUB_WORKSPACE, an environment variable that maps to /home/runner/work on the runner. 
+* The second step includes a matrix strategy that builds and tests our code with four Node.js versions:builds our application on the different NodeJS versions. If you don't specify a Node.js version, GitHub uses the environment's default Node.js version. This step also installs the dependencies needed to run the application. Using npm ci installs the versions in the package-lock.json or npm-shrinkwrap.json file and prevents updates to the lock file. 
+* The third step logs into the Heroku container registry using the HEROKU_API_KEY set in the Github secrets and referenced in our workflow as an environment variable.
 
-The fourth and fifth steps builds and releases our application to our Heroku app **devyapp** which was created earlier.
+* The fourth and fifth steps builds and releases our application to our Heroku app **devyapp** which was created earlier.
 
-Workflow syntax gives us the ability to filter on branches, and files, as well as GitHub webhook events. For our application, we have defined our workflow to be triggered if there is a push event on the master branch.
+Workflow syntax gives us the ability to filter on branches, and files, as well as GitHub webhook events. For our application, we have defined our workflow to be triggered if there is a push event on the master branch. 
+
+The workflow will be triggered once a code change has been commited and pushed to the master branch. It can take a few minutes for the deployment to be completed.
+
+We can verify that our Heroku application is running by navigating to the URL of the app we created - https://devyapp.herokuapp.com/ 
+
+![devyapp running on Heroku](/week5/images/herokuapp.png)
