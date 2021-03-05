@@ -28,7 +28,7 @@ GitHub Actions uses YAML syntax to define the events, jobs, and steps. These YAM
 Clone the repository ```git clone https://github.com/ChiamakaObitube/devyapp.git
 
 ### Step 2: Create an application on Heroku
-#### Step 3: Generate an Heroku API key.
+### Step 3: Generate an Heroku API key.
 Because we want to automate the deployment of our application to Heroku, we need an API key to login to the Heroku container registry. We can use the Heroku CLI to create an authorization token (OAuth token) by using the command ```heroku authorizations:create```.
 
 This will create a long-lived user authorization, whose token can be used to authenticate the Heroku CLI in our workflow.
