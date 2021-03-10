@@ -1,1 +1,3 @@
-Week 6: Networking
+Week 6: Networking on the Cloud
+
+What is Networking?
