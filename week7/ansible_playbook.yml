@@ -1,0 +1,139 @@
+---
+  - hosts: localhost
+    remote_user: ubuntu
+    become_method: sudo
+    become: true
+    vars:
+      ansible_python_interpreter: /usr/bin/python3  
+      project_name: "AutoMart"
+      project_path: /home/ubuntu/AutoMart
+      region: "eu-west-2"
+      sites_available: /etc/nginx/sites-available
+      sites_enabled: /etc/nginx/sites-enabled
+      sites_available_devylawyer: /etc/nginx/sites-available/automart
+      sites_enabled_devylawyer: /etc/nginx/sites-enabled/automart
+      PM2_PATH: $PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u ubuntu --hp /home/ubuntu/
+
+    tasks:
+      
+      - name: Create security group
+        vars:
+            ansible_python_interpreter: /usr/bin/python3 
+        ec2_group:
+          name: "{{ project_name }}_sg"
+          description: "{{ project_name }} security group"
+          region: "{{ region }}"
+          rules:
+            - proto: tcp  # ssh
+              from_port: 22
+              to_port: 22
+              cidr_ip: 0.0.0.0/0
+            - proto: tcp  # http
+              from_port: 80
+              to_port: 80
+              cidr_ip: 0.0.0.0/0
+            - proto: tcp  # https
+              from_port: 443
+              to_port: 443
+              cidr_ip: 0.0.0.0/0
+          rules_egress:
+            - proto: all
+              cidr_ip: 0.0.0.0/0
+        register: firewall_sg
+      - name: Create a new EC2 key
+        ec2_key:
+              name: "{{ project_name }}-lw"
+              region: "{{ region }}"
+              key_material: "{{ lookup('file', '/home/devylawyer/.ssh/id_rsa.pub') }}"
+
+      - name: Create an EC2 instance
+        ec2:
+          key_name: "{{ project_name }}-lw"
+          region: "{{ region }}"
+          group_id: nginx
+          instance_type: t2.micro
+          image: "{{ ami-0244a5621d426859b }}"
+          wait: yes
+          instance_tags:
+              Name: "{{ project_name }}-lw"
+          count_tag: Name
+          exact_count: 1
+          vpc_subnet_id: subnet-a8d9dcc0
+          assign_public_ip: yes
+        register: ec2
+      - name: Reset contents of apt list
+        shell: |
+          sudo rm -rf /var/lib/apt/lists/*
+          sudo apt-get update
+      - name: Get Nodejs gpg key
+        apt_key:
+          url: "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
+          state: present
+      - name: Install Nodejs version 10 binary
+        apt_repository:
+          repo: "deb https://deb.nodesource.com/node_10.x {{ ansible_distribution_release }} main"
+          state: present
+      - name: Install Node
+        apt:
+          name: nodejs
+          state: present
+      - name: Clone the repository
+        git:
+          repo: https://github.com/ChiamakaObitube/AutoMart.git
+          dest: "{{ project_path }}"
+      - name: Install node packages
+        shell: |
+          npm install nodejs
+          npm install
+        args:
+          chdir: "{{ project_path }}"
+      - name: Install nginx
+        apt:
+          name: nginx
+          update_cache: true
+          state: latest
+      - name: Delete nginx default file
+        file:
+          path: "{{ sites_available }}/default"
+          state: absent
+      - name: Configure nginx server
+        shell: |
+            echo "
+              server {
+                listen 80;
+                  location / {
+                    proxy_pass http://localhost:3000;
+                    }
+                  }
+                  " > {{ sites_available_automart }}
+      - name: Update nginx symlink
+        file:
+          src={{ sites_available_automart }}
+          dest={{ sites_enabled_automart }}
+          state=link
+      - name: Start nginx
+        service:
+          name: nginx
+          state: started
+      - name: Install pm2 to run app in background
+        shell: npm install pm2 -g
+      - name: Create pm2 start script
+        shell: |
+          cd /home/ubuntu/AutoMart
+          echo '
+            {
+                "apps": [{
+                "name": "AutoMart",
+                "script": "npm",
+                "args": "start"
+               }]
+            }
+          ' > start_script.config.json
+      - name: Start app with pm2
+        shell: |
+          cd /home/ubuntu/AutoMart
+          sudo pm2 start ./start_script.config.json
+          sleep 10
+          sudo pm2 startup
+          sudo env PATH={{PM2_PATH}}
+          sudo pm2 save
