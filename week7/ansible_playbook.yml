@@ -39,20 +39,14 @@
     - name: Configure nginx server
       shell: |
           echo "
-            server {
+              server {
                 listen 80;
-                server_name localhost;
-                access_log /var/log/nginx/nginx.conf.log;
-                charset utf-8;
-
-                location / {
-                  proxy_pass http://localhost:3000;
-                  proxy_set_header Host $host;
-                  proxy_set_header X-Real-IP $remote_addr;
-                  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                }
-              }
-                > {{ sites_available_devylawyer }}
+                listen [::]:80;
+                  location / {
+                    proxy_pass http://localhost:3000;
+                    }
+                  }
+                  " > {{ sites_available_devylawyer }}
     - name: Update nginx symlink
       file:
         src={{ sites_available_devylawyer }}

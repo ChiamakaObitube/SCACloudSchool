@@ -29,10 +29,22 @@ Copy your access key ID and export in the command line.
 ```
 * Launch an EC2 Instance from the AWS portal
 
-* Create a directory in /etc/ directory - ```mkdir /etc/ansible``` and copy the commands below;
+* Create a directory in /etc/ directory - ```mkdir /etc/ansible```
+Inside the directory, create a **ansible.cfg** file and copy the commands below;
 ```
 [defaults]
 private_key_file=path_to_my_key/my_key.pem
 remote_user = ubuntu
 ```
 
+* Create a **hosts** file and copy the contents below
+```
+[myServers]
+Public_IP_of_remote_server
+```
+
+I used an Elastic IP address so that my server is available on the same IP  even when the instance is restarted.
+
+* Copy the contents of the playbook in the ***ansible_playbook.yml*** file
+
+* Run the playbook using the command ```sudo ansible-playbook ansible_playbook.yml```
