@@ -22,22 +22,26 @@ Now that we have defined some technologies, let’s dive in.
 
 **Configure AWS credentials**
 Copy your access key ID and export in the command line.
-
+```
    export AWS_ACCESS_KEY_ID=
    export AWS_SECRET_ACCESS_KEY=
    export AWS_REGION=
 ```
+
 * Launch an EC2 Instance from the AWS portal
 
 * Create a directory in /etc/ directory - ```mkdir /etc/ansible```
 Inside the directory, create a **ansible.cfg** file and copy the commands below;
+
 ```
 [defaults]
 private_key_file=path_to_my_key/my_key.pem
 remote_user = ubuntu
 ```
 
+
 * Create a **hosts** file and copy the contents below
+
 ```
 [myServers]
 Public_IP_of_remote_server
