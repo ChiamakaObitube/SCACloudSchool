@@ -9,7 +9,6 @@
       sites_enabled: /etc/nginx/sites-enabled
       sites_available_devylawyer: /etc/nginx/sites-available/devylawyer
       sites_enabled_devylawyer: /etc/nginx/sites-enabled/devylawyer
-      PM2_PATH: $PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u ubuntu --hp /home/ubuntu/
 
   tasks:
     - name: Install nginx
@@ -56,33 +55,6 @@
       shell: npm i
       args:
         chdir: /home/ubuntu/devyapp
-    - name: Start nginx
-      service:
-        name: nginx
-        state: started
-    - name: Install pm2 to run app in background
-      shell: npm install pm2 -g
-    - name: Create pm2 start script
-      shell: |
-        cd /home/ubuntu/devyapp
-        echo '
-          {
-              "apps": [{
-              "name": "Devylawyer",
-              "script": "npm",
-              "args": "start"
-              }]
-          }
-        ' > start_script.config.json
-    - name: Start app with pm2
-      shell: |
-        cd /home/ubuntu/devyapp
-        sudo pm2 start ./start_script.config.json
-        sleep 10
-        sudo pm2 startup
-        sudo env PATH={{PM2_PATH}}
-        sudo pm2 save
-
 
   handlers:
     - name: start Nginx
