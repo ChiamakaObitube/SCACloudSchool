@@ -1,1 +1,0 @@
-Week 7: Infrastructure Provisioning and Configuration Management
