@@ -3,68 +3,23 @@
     remote_user: ubuntu
     become_method: sudo
     become: true
+
     vars:
-      ansible_python_interpreter: /usr/bin/python3  
-      project_name: "AutoMart"
-      project_path: /home/ubuntu/AutoMart
-      region: "eu-west-2"
-      sites_available: /etc/nginx/sites-available
-      sites_enabled: /etc/nginx/sites-enabled
-      sites_available_devylawyer: /etc/nginx/sites-available/automart
-      sites_enabled_devylawyer: /etc/nginx/sites-enabled/automart
-      PM2_PATH: $PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u ubuntu --hp /home/ubuntu/
+      - homeDir: /home/ubuntu
+      - appDir : AutoMart
+      - repo: AutoMart
+      - account: ChiamakaObitube
+      - privateKey: /home/devylawyer/.ssh/id_rsa  
+      - project_name: "AutoMart"
+      - project_path: /home/ubuntu/AutoMart
+      - sites_available: /etc/nginx/sites-available
+      - sites_enabled: /etc/nginx/sites-enabled
+      - sites_available_devylawyer: /etc/nginx/sites-available/automart
+      - sites_enabled_devylawyer: /etc/nginx/sites-enabled/automart
+      - PM2_PATH: $PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u ubuntu --hp /home/ubuntu/
 
     tasks:
       
-      - name: Create security group
-        vars:
-            ansible_python_interpreter: /usr/bin/python3 
-        ec2_group:
-          name: "{{ project_name }}_sg"
-          description: "{{ project_name }} security group"
-          region: "{{ region }}"
-          rules:
-            - proto: tcp  # ssh
-              from_port: 22
-              to_port: 22
-              cidr_ip: 0.0.0.0/0
-            - proto: tcp  # http
-              from_port: 80
-              to_port: 80
-              cidr_ip: 0.0.0.0/0
-            - proto: tcp  # https
-              from_port: 443
-              to_port: 443
-              cidr_ip: 0.0.0.0/0
-          rules_egress:
-            - proto: all
-              cidr_ip: 0.0.0.0/0
-        register: firewall_sg
-      - name: Create a new EC2 key
-        ec2_key:
-              name: "{{ project_name }}-lw"
-              region: "{{ region }}"
-              key_material: "{{ lookup('file', '/home/devylawyer/.ssh/id_rsa.pub') }}"
-
-      - name: Create an EC2 instance
-        ec2:
-          key_name: "{{ project_name }}-lw"
-          region: "{{ region }}"
-          group_id: nginx
-          instance_type: t2.micro
-          image: "{{ ami-0244a5621d426859b }}"
-          wait: yes
-          instance_tags:
-              Name: "{{ project_name }}-lw"
-          count_tag: Name
-          exact_count: 1
-          vpc_subnet_id: subnet-a8d9dcc0
-          assign_public_ip: yes
-        register: ec2
-      - name: Reset contents of apt list
-        shell: |
-          sudo rm -rf /var/lib/apt/lists/*
-          sudo apt-get update
       - name: Get Nodejs gpg key
         apt_key:
           url: "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
