@@ -49,6 +49,6 @@ Public_IP_of_remote_server
 
 I used an Elastic IP address so that my server is available on the same IP  even when the instance is restarted.
 
-* Copy the contents of the playbook in the ***ansible_playbook.yml*** file
+* Copy the contents of the playbook in the ***ansible_playbook.yml*** file.
 
 * Run the playbook using the command ```sudo ansible-playbook ansible_playbook.yml```
