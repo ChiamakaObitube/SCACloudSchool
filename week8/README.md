@@ -61,12 +61,9 @@ spec:
     spec:
       containers:
         - name: demo
-          image: chiamakaobitube/kubernetes-php
+          image: chiamakaobitube/docker-php-hello-world
           ports:
             - containerPort: 80
-          env:
-            - name: APP_KEY
-              value: base64:cUPmwHx4LXa4Z25HhzFiWCf7TlQmSqnt98pnuiHmzgY=
 ```
 * Submit the Deployment to the Cluster
 ```kubectl apply -f deployment.yaml```
