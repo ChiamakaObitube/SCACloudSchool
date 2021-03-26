@@ -19,7 +19,7 @@ Containerization is a technology that virtualizes the OS. It abstracts the host 
 * Ease of managemnt
 * Security
 
-The major difference between virtual machines and containers is that containers do not bundle in a copy of the operating system. Instead, the contianer runtime engine is istalled on the host system's operating system.
+The major difference between virtual machines and containers is that containers do not bundle in a copy of the operating system. Instead, the container runtime engine is installed on the host system's operating system.
 
 The most popular container platform is Docker and I will do a brief introduction.
 Docker was introduced in 2013 to build and share containarized apps from desktop, to the cloud. Docker provides the ability to package and run an application in a loosely isolated environment called a container.
