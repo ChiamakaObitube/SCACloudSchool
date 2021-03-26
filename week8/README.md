@@ -28,3 +28,63 @@ Kubernetes provides you with a framework to run distributed systems resiliently.
 * Service -  A Service is a load balancer for a collection of Pods.
 * Deployment - A Deployment provides declarative updates for Pods and ReplicaSets.
 
+### Week 8 Task
+
+This week's taks is to deploy a PHP application with Kubernetes.
+For this, we will need a dockerized PHP application, kubectl and minikube.
+
+Minikube is a local Kubernetes environment that allows us create and manage Kubernetes cluster(s).
+#### Step 1: Install Minikube, Docker and Kubectl
+
+#### Step 2: Create a Cluster
+    Run ```minikube start```
+
+#### Step 3: Create a Deployment
+ * The dockerized image has been pushed to Docker Hub and available at chiamakaobitube/kubernetes-php.
+ * Run ```nano deployment.yaml``` to create  deployment file.
+ * Copy and paste the below
+
+ ```
+deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubernetes-php
+spec:
+  selector:
+    matchLabels:
+      run: kubernetes-php
+  template:
+    metadata:
+      labels:
+        run: kubernetes-php
+    spec:
+      containers:
+        - name: demo
+          image: chiamakaobitube/kubernetes-php
+          ports:
+            - containerPort: 80
+          env:
+            - name: APP_KEY
+              value: base64:cUPmwHx4LXa4Z25HhzFiWCf7TlQmSqnt98pnuiHmzgY=
+```
+* Submit the Deployment to the Cluster
+```kubectl apply -f deployment.yaml```
+
+#### Step 4: Check if the application is running
+``` kubectl get pods```
+
+#### Step 5: Expose the App
+* We will create a Service to expose the app on a static IP address such that if the application is updated or redeployed, the IP will not change. 
+```kubectl expose pods kubernetes-php --type=NodePort --port=80```
+
+* To verify that the service was created.
+```kubectl get services```
+
+#### Step 6: Scale the App
+* At this moment, we have just a single instance of our application running. We want to have a t least 3 instances of our application running at all time. 
+```kubectl scale --replicas=3 deployment/kubernetes-php```
+* To confirm this , run ```kubectl get deployments.pods```
+Now our application is running in 3 instances.
+
+
