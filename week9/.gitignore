@@ -1,3 +1,9 @@
 *.tfstate
 *.tfstate.*
 **/.terraform/*
+terraform.tfstate
+week9/terraform.tfstate.backup
+.terraform/*
+/terraform.tfstate
+
+
