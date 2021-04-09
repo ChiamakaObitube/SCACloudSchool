@@ -1,0 +1,9 @@
+*.tfstate
+*.tfstate.*
+**/.terraform/*
+terraform.tfstate
+week9/terraform.tfstate.backup
+.terraform/*
+/terraform.tfstate
+/week9/.terraform/providers/registry.terraform.io/hashicorp
+/home/devylawyer/Documents/SCACloudSchool/week9/.terraform/providers/registry.terraform.io/hashicorp
