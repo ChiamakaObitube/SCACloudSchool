@@ -46,6 +46,7 @@ resource "google_sql_database_instance" "instance" {
   name   = "private-instance-${random_id.db_name_suffix.hex}"
   region = "europe-west1"
   depends_on = [google_service_networking_connection.private_vpc_connection]
+  
 
   settings {
     tier = "db-f1-micro"
@@ -54,5 +55,12 @@ resource "google_sql_database_instance" "instance" {
       private_network = google_compute_network.vpc_network.id
     }
   }
+  deletion_protection = "false"
 }
+
+resource "google_sql_database" "database" {
+  name     = "private-database"
+  instance = google_sql_database_instance.instance.name
+}
+
 
