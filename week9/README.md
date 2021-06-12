@@ -3,4 +3,4 @@ SCA Project is to deploy a fullstack application to Google Kubernetes Engine usi
 * a database in a private subnet
 * a Kubernetes cluster
 * manifests for deploying frontend and API applications
-* Setup CI/CD to deploy application to Kubernetes
+* Setup CI/CD to deploy application to a Google Keubernetes Engine cluster.
